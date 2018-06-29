@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import './App.css';
+import classes from './App.css';
 
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 const persons = {
   1: {
@@ -56,42 +57,43 @@ class App extends Component {
   renderPersons = () => {
     return _.map(this.state.persons, person => {
       return (
-        <Person
-          id={person.id}
-          key={person.id}
-          name={person.name}
-          age={person.age}
-          click={this.deletePersonHandler.bind(this, person.id)}
-          changed={this.nameChangedHandler}
-        >
-          {person.about}
-        </Person>
+        <ErrorBoundary key={person.id}>
+          <Person
+            id={person.id}
+            name={person.name}
+            age={person.age}
+            click={this.deletePersonHandler.bind(this, person.id)}
+            changed={this.nameChangedHandler}
+          >
+            {person.about}
+          </Person>
+        </ErrorBoundary>
       );
     });
   };
 
   render() {
-    const styles = {};
-
     let persons = null;
+    let btnClass = '';
+
     if (this.state.showPersons) {
       persons = this.renderPersons();
-      styles.backgroundColor = 'red';
+      btnClass = classes.Red;
     }
 
-    const classes = [];
+    const assignedClasses = [];
     if (_.size(this.state.persons) < 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (_.size(this.state.persons) < 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button style={styles} onClick={this.togglePersonsHandler}>
+        <p className={assignedClasses.join(' ')}>This is really working!</p>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Show Persons
         </button>
         {persons}

@@ -10,3 +10,9 @@
 .Person h3 {
   margin-top: 0;
 }
+
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}

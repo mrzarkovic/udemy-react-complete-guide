@@ -9,3 +9,22 @@
 .bold {
   font-weight: bold;
 }
+
+.App button {
+  background: #f2f2f2;
+  border: 0;
+  border-radius: 2px;
+  padding: 10px 15px;
+}
+
+.App button:hover {
+  background: #ddd;
+}
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+}
